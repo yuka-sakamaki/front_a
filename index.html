@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>front_a</title>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <p id="result"></p>
+      <button id="button">更新</button>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $("button").click(function () {
+        $.ajax({
+          type: "GET",
+          url: "https://catfact.ninja/fact",
+          dataType: "json",
+        })
+          .done(function (data) {
+            var data_stringify = JSON.stringify(data);
+            var data_json = JSON.parse(data_stringify);
+            var data_fact = data_json["fact"];
+            $("#result").text(data_fact);
+          })
+          .fail(function (data) {
+            alert("データの取得に失敗しました");
+          });
+      });
+    </script>
+  </body>
+</html>
